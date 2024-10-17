@@ -1,5 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import {
+  Card,
+  Button,
+  Form as BootstrapForm,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 
 interface Currency {
   id: string;
@@ -9,14 +17,13 @@ interface Currency {
 
 interface RootState {
   currencies: {
-    currencies: Currency[]; // Notice the structure here
+    currencies: Currency[];
     status: string;
     error: string | null;
   };
 }
 
 const Form = () => {
-  // Access the currencies array directly
   const currencies = useSelector(
     (state: RootState) => state.currencies.currencies
   );
@@ -45,28 +52,63 @@ const Form = () => {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        value={fromCurrency}
-        onChange={(e) => setFromCurrency(e.target.value)}
-        placeholder="From Currency (e.g., usd)"
-      />
-      <input
-        type="text"
-        value={toCurrency}
-        onChange={(e) => setToCurrency(e.target.value)}
-        placeholder="To Currency (e.g., inr)"
-      />
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(Number(e.target.value))}
-        placeholder="Amount"
-      />
-      <button onClick={handleConvert}>Convert</button>
-      <p>Result: {result !== null ? result : "Enter valid currencies"}</p>
-    </div>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Row className="w-100">
+        <Col xs={12} md={6} className="mx-auto">
+          <Card className="p-4 shadow-sm">
+            <Card.Body>
+              <Card.Title className="text-center mb-4">
+                Currency Converter
+              </Card.Title>
+              <BootstrapForm>
+                <BootstrapForm.Group className="mb-3">
+                  <BootstrapForm.Label>From Currency</BootstrapForm.Label>
+                  <BootstrapForm.Control
+                    type="text"
+                    value={fromCurrency}
+                    onChange={(e) => setFromCurrency(e.target.value)}
+                    placeholder="From Currency (e.g., usd)"
+                  />
+                </BootstrapForm.Group>
+
+                <BootstrapForm.Group className="mb-3">
+                  <BootstrapForm.Label>To Currency</BootstrapForm.Label>
+                  <BootstrapForm.Control
+                    type="text"
+                    value={toCurrency}
+                    onChange={(e) => setToCurrency(e.target.value)}
+                    placeholder="To Currency (e.g., inr)"
+                  />
+                </BootstrapForm.Group>
+
+                <BootstrapForm.Group className="mb-3">
+                  <BootstrapForm.Label>Amount</BootstrapForm.Label>
+                  <BootstrapForm.Control
+                    type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(Number(e.target.value))}
+                    placeholder="Amount"
+                  />
+                </BootstrapForm.Group>
+
+                <div className="text-center">
+                  <Button variant="primary" onClick={handleConvert}>
+                    Convert
+                  </Button>
+                </div>
+              </BootstrapForm>
+
+              <p className="text-center mt-4">
+                Result: {result !== null ? result : "Enter valid currencies"}
+              </p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

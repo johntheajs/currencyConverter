@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Currency Converter</h1>
+      {/* <h1>Currency Converter</h1> */}
       <Form />
     </div>
   );
